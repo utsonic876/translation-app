@@ -48,3 +48,14 @@ I plan to study Computer Science with a focus on cybersecurity at Georgia Tech. 
 Built with purpose. Open to collaboration.
 plain
 
+## Current Status
+
+- [x] Project structure and repository setup
+- [x] Basic text sanitization module
+- [ ] API routing with Flask
+- [ ] Translation engine integration
+- [ ] Unit tests
+- [ ] Deploy to cloud
+
+Last updated: July 28, 2026
+

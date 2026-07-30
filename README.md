@@ -51,11 +51,13 @@ plain
 ## Current Status
 
 - [x] Project structure and repository setup
-- [x] Basic text sanitization module
-- [ ] API routing with Flask
-- [ ] Translation engine integration
-- [ ] Unit tests
+- [x] Basic text sanitization module (`sanitize.py`)
+- [x] Unit tests for sanitization (`test_sanitize.py`)
+- [x] Translation engine skeleton (`translator.py`)
+- [ ] API routing with Flask (`routes.py`)
+- [ ] Connect translator to API routes
+- [ ] Integration tests
 - [ ] Deploy to cloud
 
-Last updated: July 28, 2026
+Last updated: July 30, 2026
 

@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from sanitize import sanitize_text
+from api.sanitize import sanitize_text
 from backend.translator import translate_text, detect_language
 
 app = Flask(__name__)

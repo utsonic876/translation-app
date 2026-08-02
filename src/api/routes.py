@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from api.sanitize import sanitize_text
-from backend.translator import translate_text, detect_language
+from src.backend.translator import translate_text, detect_language
 
 app = Flask(__name__)
 

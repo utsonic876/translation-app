@@ -34,13 +34,44 @@ def test_translate_endpoint():
     assert data['target_language'] == 'fr'
 
 def test_translate_empty_text():
-    """This tests /translate handles empty text gracefully."""
+    """This tests /translate returns 400 when empty text is provided."""
     client = app.test_client()
     
     response = client.post('/translate',
                           json={'text': '', 'target_lang': 'en'})
     
+    assert response.status_code == 400
+    data = response.get_json()
+    assert 'error' in data
+
+def test_translate_no_json():
+    """This tests /translate returns 400 when no JSON is provided."""
+    client = app.test_client()
+    
+    response = client.post('/translate')
+    
+    assert response.status_code == 400
+    data = response.get_json()
+    assert 'error' in data
+
+def test_translate_missing_text():
+    """This tests /translate returns 400 when text field is missing."""
+    client = app.test_client()
+    
+    response = client.post('/translate',
+                          json={'target_lang': 'fr'})
+    
+    assert response.status_code == 400
+    data = response.get_json()
+    assert 'error' in data
+
+def test_health_check():
+    """This tests the /health endpoint returns ok."""
+    client = app.test_client()
+    
+    response = client.get('/health')
+    
     assert response.status_code == 200
     data = response.get_json()
-    assert data['cleaned'] == ''
-    assert data['translated'] == ''
+    assert 'status' in data
+    assert data['status'] == 'ok'

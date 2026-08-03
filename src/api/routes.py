@@ -10,7 +10,17 @@ def translate():
     This function receives text and target language; it then returns translated text.
     """
     data = request.get_json()
+    
+    # Error handling: check if JSON was provided
+    if not data:
+        return jsonify({'error': 'No JSON data provided'}), 400
+    
     text = data.get('text', '')
+    
+    # Error handling: validate text exists and is not empty
+    if text is None or text == '':
+        return jsonify({'error': 'Text field is required'}), 400
+    
     target_lang = data.get('target_lang', 'en')
     
     # Sanitizes input
@@ -36,12 +46,28 @@ def sanitize():
     Standalone endpoint for text sanitization.
     """
     data = request.get_json()
+    
+    # Error handling: check if JSON was provided
+    if not data:
+        return jsonify({'error': 'No JSON data provided'}), 400
+    
     text = data.get('text', '')
+    
+    # Error handling: validate text exists and is not empty
+    if text is None or text == '':
+        return jsonify({'error': 'Text field is required'}), 400
     
     return jsonify({
         'original': text,
         'cleaned': sanitize_text(text)
     })
+
+@app.route('/health', methods=['GET'])
+def health_check():
+    """
+    Simple health check endpoint.
+    """
+    return jsonify({'status': 'ok'})
 
 if __name__ == '__main__':
     app.run(debug=True)

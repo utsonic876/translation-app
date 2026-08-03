@@ -45,10 +45,10 @@ def test_translate_empty_text():
     assert 'error' in data
 
 def test_translate_no_json():
-    """This tests /translate returns 400 when no JSON is provided."""
+    """This tests /translate returns 400 when empty JSON is provided."""
     client = app.test_client()
     
-    response = client.post('/translate')
+    response = client.post('/translate', json={})
     
     assert response.status_code == 400
     data = response.get_json()

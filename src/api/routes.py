@@ -11,25 +11,25 @@ def translate():
     """
     data = request.get_json()
     
-    # Error handling: check if JSON was provided
+    # Need to check if JSON was actually sent
     if not data:
         return jsonify({'error': 'No JSON data provided'}), 400
     
     text = data.get('text', '')
     
-    # Error handling: validate text exists and is not empty
+    # Can't translate nothing — need text to work with
     if text is None or text == '':
         return jsonify({'error': 'Text field is required'}), 400
     
     target_lang = data.get('target_lang', 'en')
     
-    # Sanitizes input
+    # Clean up the input before translating
     clean_text = sanitize_text(text)
     
-    # Detects source language (placeholder for now)
+    # Figure out what language they sent (placeholder for now)
     source_lang = detect_language(clean_text)
     
-    # Translates text
+    # Do the actual translation
     translated = translate_text(clean_text, target_lang)
     
     return jsonify({
@@ -47,13 +47,13 @@ def sanitize():
     """
     data = request.get_json()
     
-    # Error handling: check if JSON was provided
+    # Need to check if JSON was actually sent
     if not data:
         return jsonify({'error': 'No JSON data provided'}), 400
     
     text = data.get('text', '')
     
-    # Error handling: validate text exists and is not empty
+    # Can't sanitize nothing — need text to work with
     if text is None or text == '':
         return jsonify({'error': 'Text field is required'}), 400
     

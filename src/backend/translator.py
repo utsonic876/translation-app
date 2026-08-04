@@ -12,10 +12,7 @@ API_KEY = os.getenv('TRANSLATION_API_KEY:fx', '')
 def translate_text(text, target_language="en"):
     """
     Translate sanitized text to target language.
-    
-    My family speaks Ewe, French, and English. 
-    I want this to eventually auto-detect which one 
-    my mom is typing in so she doesn't have to select it.
+
     """
     if not text:
         return ""

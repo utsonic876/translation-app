@@ -3,55 +3,47 @@ Translation engine core module.
 This handles API calls to translation services and response processing.
 """
 
-import requests
 import os
 
-# Load API key from environment variable
-API_KEY = os.getenv('TRANSLATION_API_KEY:fx', '')
+# Load API key from environment variable for production use
+# Set this in your terminal: $env:TRANSLATION_API_KEY="your-key"
+API_KEY = os.getenv('TRANSLATION_API_KEY', '')
 
 def translate_text(text, target_language="en"):
     """
     Translate sanitized text to target language.
-
+    
+    TODO: I need to integrate a real translation API (DeepL, Google Cloud, etc.)
+    For now this returns the original text as a placeholder.
     """
     if not text:
         return ""
     
-    # TODO: I need to handle missing API key better — maybe warn the user
-    if not API_KEY:
-        # Fallback: return original text if no API key
-        return text
+    #  Once I get a reliable API key, I'll uncomment this block
+    # try:
+    #     import requests
+    #     url = "https://api-free.deepl.com/v2/translate"
+    #     headers = {'Authorization': f'DeepL-Auth-Key {API_KEY}'}
+    #     data = {'text': text, 'target_lang': target_language.upper()}
+    #     response = requests.post(url, headers=headers, data=data, timeout=10)
+    #     result = response.json()
+    #     if 'translations' in result:
+    #         return result['translations'][0]['text']
+    # except Exception:
+    #     pass
     
-    try:
-        url = "https://api-free.deepl.com/v2/translate"
-        headers = {
-            'Authorization': f'DeepL-Auth-Key {API_KEY}'
-        }
-        data = {
-            'text': text,
-            'target_lang': target_language.upper()
-        }
-        response = requests.post(url, headers=headers, data=data, timeout=10)
-        result = response.json()
-        
-        if 'translations' in result and len(result['translations']) > 0:
-            return result['translations'][0]['text']
-        else:
-            return text
-            
-    except Exception as e:
-        # TODO: I need to handle this better; I could probably log it somewhere
-        return text
+    # Placeholder: return text as-is until API is connected
+    return text
 
 def detect_language(text):
     """
     Detect the language of input text.
-
+    
+    For now I'll hardcode common languages my family uses: Ewe, French, English
     """
     if not text:
         return "en"
     
-    # TODO: DeepL doesn't have a free detect endpoint
-    # I'll need to use a different service or implement basic detection
-    # For now, return auto and let DeepL handle it
-    return "auto"
+    # TODO: I'll implement real detection once I integrate a translation service
+    # For now, default to English
+    return "en"

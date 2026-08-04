@@ -5,13 +5,16 @@ This handles API calls to translation services (Google Translate) and response p
 
 from googletrans import Translator
 
-# THis will initialize the translator once so we don't create a new instance every call
+# This will initialize the translator once so we don't create a new instance every call
 translator = Translator()
 
 def translate_text(text, target_language="en"):
     """
     Translate sanitized text to target language.
     
+    My family speaks Ewe, French, and English. 
+    I want this to eventually auto-detect which one 
+    my mom is typing in so she doesn't have to select it.
     """
     if not text:
         return ""
@@ -25,7 +28,9 @@ def translate_text(text, target_language="en"):
 
 def detect_language(text):
     """
-    This function detects the language of input text.
+    Detect the language of input text.
+    
+    For now I'll hardcode common languages my family uses: Ewe, French, English
     """
     if not text:
         return "en"

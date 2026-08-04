@@ -7,7 +7,7 @@ import requests
 import os
 
 # Load API key from environment variable
-API_KEY = os.getenv('3b1e8b3a-382d-4bfe-aea2-13c2234b4854:fx', '')
+API_KEY = os.getenv('TRANSLATION_API_KEY:fx', '')
 
 def translate_text(text, target_language="en"):
     """

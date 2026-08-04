@@ -26,4 +26,35 @@ def translate_text(text, target_language="en"):
         return text
     
     try:
-        url = "
+        url = "https://api-free.deepl.com/v2/translate"
+        headers = {
+            'Authorization': f'DeepL-Auth-Key {API_KEY}'
+        }
+        data = {
+            'text': text,
+            'target_lang': target_language.upper()
+        }
+        response = requests.post(url, headers=headers, data=data, timeout=10)
+        result = response.json()
+        
+        if 'translations' in result and len(result['translations']) > 0:
+            return result['translations'][0]['text']
+        else:
+            return text
+            
+    except Exception as e:
+        # TODO: I need to handle this better; I could probably log it somewhere
+        return text
+
+def detect_language(text):
+    """
+    Detect the language of input text.
+
+    """
+    if not text:
+        return "en"
+    
+    # TODO: DeepL doesn't have a free detect endpoint
+    # I'll need to use a different service or implement basic detection
+    # For now, return auto and let DeepL handle it
+    return "auto"

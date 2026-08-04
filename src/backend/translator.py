@@ -1,23 +1,38 @@
 """
 Translation engine core module.
-This handles API calls to translation services and response processing.
+This handles API calls to translation services (Google Translate) and response processing.
 """
+
+from googletrans import Translator
+
+# THis will initialize the translator once so we don't create a new instance every call
+translator = Translator()
 
 def translate_text(text, target_language="en"):
     """
     Translate sanitized text to target language.
     
     """
-    # TODO: I need to implement translation API integration
-    # Options: Google Translate API or DeepL API (Probably Google Translate API)
+    if not text:
+        return ""
     
-    # Placeholder: return text as-is until API is connected
-    return text
+    try:
+        result = translator.translate(text, dest=target_language)
+        return result.text
+    except Exception as e:
+        # TODO: I need to handle this better; I could probably log it somewhere
+        return f"Translation error: {str(e)}"
 
 def detect_language(text):
     """
-    Detect the language of input text.
+    This function detects the language of input text.
     """
-    # TODO: I need to implement language detection
-
-    return "en"
+    if not text:
+        return "en"
+    
+    try:
+        result = translator.detect(text)
+        return result.lang
+    except Exception as e:
+        # TODO: I'll need to handle this better too
+        return "en"

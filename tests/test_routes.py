@@ -32,6 +32,8 @@ def test_translate_endpoint():
     assert 'translated' in data
     assert 'target_language' in data
     assert data['target_language'] == 'fr'
+    # Placeholder returns original text; I'll it update once real API is integrated
+    assert data['translated'] == 'hello'
 
 def test_translate_empty_text():
     """This tests /translate returns 400 when empty text is provided."""
